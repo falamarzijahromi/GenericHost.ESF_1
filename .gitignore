@@ -1,0 +1,12 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/Source/GenericHosts_ESF_1.sln.DotSettings.user
+/Source/packages
+/Source/HostingNarrator/bin
+/Source/HostingNarrator/obj
+/Source/ConsoleHost/obj
+/Source/ConsoleHost/bin
+/Source/.vs/GenericHosts_ESF_1/v15
