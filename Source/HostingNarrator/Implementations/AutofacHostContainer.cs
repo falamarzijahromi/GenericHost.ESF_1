@@ -1,4 +1,5 @@
-﻿using DynamicServiceHost.Host.Abstracts;
+﻿using Autofac;
+using DynamicServiceHost.Host.Abstracts;
 using HostingNarrator.Abstracts;
 using System;
 
@@ -7,6 +8,7 @@ namespace HostingNarrator.Implementations
     public class AutofacHostContainer : IHostContainer
     {
         private AutofacIocContainer iocContainer;
+        private IContainer container;
         private readonly ILogger logger;
 
         public AutofacHostContainer(AutofacIocContainer iocContainer, ILogger logger)
@@ -15,13 +17,16 @@ namespace HostingNarrator.Implementations
             this.logger = logger;
         }
 
+        public void SetRootContainerUp()
+        {
+            container = iocContainer.CreateContainer();
+        }
+
         public IHostContainer CreateLifeScope()
         {
-            var container = iocContainer.CreateContainer();
-
             var lifetimeScope = container.BeginLifetimeScope();
 
-            var lifetimeScopeContainer = new AutoFacLifetimeScope(lifetimeScope, container, logger);
+            var lifetimeScopeContainer = new AutoFacLifetimeScope(lifetimeScope, logger);
 
             logger.Log("LifetimeScope Created", LogLevel.All);
 

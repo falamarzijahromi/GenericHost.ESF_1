@@ -7,7 +7,7 @@ namespace HostingNarrator
 {
     public class DependencyRegistor
     {
-        public static IHostContainer RegisterDependencies(Type compositionRootType, ILogger logger)
+        public static IHostContainer RegisterDependencies(Type compositionRootType, ILogger logger, out Action containerSetup)
         {
             var iocContainer = new AutofacIocContainer(logger);
 
@@ -23,6 +23,10 @@ namespace HostingNarrator
             method.Invoke(null, new[] {iocContainer});
 
             var hostContainer = new AutofacHostContainer(iocContainer, logger);
+
+            hostContainer.RegisterSingleton<ILogger>(logger);
+
+            containerSetup = () => hostContainer.SetRootContainerUp();
 
             return hostContainer;
         }

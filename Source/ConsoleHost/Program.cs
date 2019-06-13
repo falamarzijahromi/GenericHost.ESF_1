@@ -10,9 +10,12 @@ namespace ConsoleHost
     {
         private static void Main(string[] args)
         {
-            var logger = GetLogger();
+            var bcDirInput = ExtractArg(args, 0);
+            var logLevelInput = ExtractArg(args, 1);
 
-            var directory = GetDirectory();
+            var logger = GetLogger(logLevelInput);
+
+            var directory = GetDirectory(bcDirInput);
 
             var narrator = new Narrator(directory, logger);
 
@@ -33,18 +36,30 @@ namespace ConsoleHost
             }
         }
 
-        private static DirectoryInfo GetDirectory()
+        private static string ExtractArg(string[] args, int index)
         {
-            var bcDir = ConfigurationManager.AppSettings["BcDir"];
+            try
+            {
+                return args[index];
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        
+        private static DirectoryInfo GetDirectory(string bcDir = null)
+        {
+            bcDir = bcDir ?? ConfigurationManager.AppSettings["BcDir"];
 
             var dir = new DirectoryInfo(bcDir);
 
             return dir;
         }
 
-        private static ILogger GetLogger()
+        private static ILogger GetLogger(string logLevelString = null)
         {
-            var logLevelString = ConfigurationManager.AppSettings["LogLevel"];
+            logLevelString = logLevelString ?? ConfigurationManager.AppSettings["LogLevel"];
 
             var logLevel = (LogLevel)Enum.Parse(typeof(LogLevel), logLevelString);
 

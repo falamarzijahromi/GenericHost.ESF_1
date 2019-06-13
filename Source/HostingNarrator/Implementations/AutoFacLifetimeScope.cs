@@ -8,16 +8,13 @@ namespace HostingNarrator.Implementations
     public class AutoFacLifetimeScope : IHostContainer
     {
         private readonly ILifetimeScope lifetimeScope;
-        private readonly IContainer container;
         private readonly ILogger logger;
 
         public AutoFacLifetimeScope(
             ILifetimeScope lifetimeScope, 
-            IContainer container, 
             ILogger logger)
         {
             this.lifetimeScope = lifetimeScope;
-            this.container = container;
             this.logger = logger;
         }
 
@@ -29,7 +26,6 @@ namespace HostingNarrator.Implementations
         public void Dispose()
         {
             lifetimeScope.Dispose();
-            container.Dispose();
         }
 
         public void RegisterSingleton<T>(T instance)
@@ -44,7 +40,16 @@ namespace HostingNarrator.Implementations
 
         public object Resolve(Type type)
         {
-            return lifetimeScope.Resolve(type);
+            try
+            {
+                return lifetimeScope.Resolve(type);
+            }
+            catch (Exception e)
+            {
+                logger.LogError($"Resolving {type.FullName} ended with exception:{Environment.NewLine}{e.Message}");
+
+                throw;
+            }
         }
     }
 }

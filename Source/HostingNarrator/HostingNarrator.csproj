@@ -228,6 +228,7 @@
     <Compile Include="Abstracts\IGenericInterceptor.cs" />
     <Compile Include="Abstracts\ILogger.cs" />
     <Compile Include="Implementations\AutofacInterceptionContext.cs" />
+    <Compile Include="Implementations\LogInterceptor.cs" />
     <Compile Include="Narrator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceHost.cs" />

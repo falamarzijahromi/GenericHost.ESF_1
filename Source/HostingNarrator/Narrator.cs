@@ -31,7 +31,7 @@ namespace HostingNarrator
 
                 var compositionType = GetCompositionDll(dlls, logger);
 
-                var container = DependencyRegistor.RegisterDependencies(compositionType, logger);
+                var container = DependencyRegistor.RegisterDependencies(compositionType, logger, out Action containerSetup);
 
                 var contractAssembly = GetContractAssembly(dlls, logger);
 
@@ -40,6 +40,8 @@ namespace HostingNarrator
 
                 commandServiceHost = ServiceHost.HostCommands(commandTypes, container, logger);
                 queryServiceHost = ServiceHost.HostQueries(queryTypes, container, logger);
+
+                containerSetup.Invoke();
             }
             catch (Exception e)
             {

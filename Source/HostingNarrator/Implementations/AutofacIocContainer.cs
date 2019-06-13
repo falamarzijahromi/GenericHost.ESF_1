@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using Autofac;
 using Autofac.Builder;
 using Autofac.Extras.DynamicProxy;
+using Autofac.Features.ResolveAnything;
 using Composition.ESF_1;
 using HostingNarrator.Abstracts;
 
@@ -17,6 +20,8 @@ namespace HostingNarrator.Implementations
         public AutofacIocContainer(ILogger logger)
         {
             containerBuilder = new ContainerBuilder();
+
+            containerBuilder.RegisterSource(new AnyConcreteTypeNotAlreadyRegisteredSource());
 
             this.logger = logger;
 
@@ -78,7 +83,9 @@ namespace HostingNarrator.Implementations
                 builder.As(serviceType);
             }
 
-            RegisterInterceptors(interceptorTypes, builder);
+            var setInterceptors = SetInterceptorTypes(interceptorTypes);
+
+            RegisterInterceptors(setInterceptors, builder);
 
             ProvideLoggingContents(serviceTypes, interceptorTypes, out StringBuilder serviceNames, out StringBuilder interceptorNames);
 
@@ -95,6 +102,19 @@ namespace HostingNarrator.Implementations
         public void Dispose()
         {
             containerBuilder = null;
+        }
+
+        private Type[] SetInterceptorTypes(Type[] interceptorTypes)
+        {
+            interceptorTypes = interceptorTypes ?? new Type[0];
+
+            var interceptors = new List<Type>();
+
+            interceptors.Add(typeof(LogInterceptor));
+
+            interceptors.AddRange(interceptorTypes);
+
+            return interceptors.ToArray();
         }
 
         private void RegisterInterceptors(

@@ -4,7 +4,7 @@ using HostingNarrator.Abstracts;
 
 namespace HostingNarrator.Implementations
 {
-    public class GenericInterceptor<T> : IGenericInterceptor<T> 
+    public class GenericInterceptor<T> : IGenericInterceptor<T>
         where T : IServiceInterceptor
     {
         private readonly T serviceInterceptor;
@@ -16,9 +16,9 @@ namespace HostingNarrator.Implementations
 
         public void Intercept(IInvocation invocation)
         {
-           var interceptionContext = new AutofacInterceptionContext(invocation);
+            var interceptionContext = new AutofacInterceptionContext(invocation);
 
-           serviceInterceptor.Intercept(interceptionContext);
+            serviceInterceptor.Intercept(interceptionContext);
         }
     }
 }
