@@ -47,7 +47,7 @@
       <HintPath>..\packages\Composition.ESF_1.1.0.1\lib\netstandard2.0\Composition.ESF_1.dll</HintPath>
     </Reference>
     <Reference Include="DynamicServiceHost.Host, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DHost.Host.1.0.1\lib\net461\DynamicServiceHost.Host.dll</HintPath>
+      <HintPath>..\packages\DHost.Host.1.2.4\lib\net461\DynamicServiceHost.Host.dll</HintPath>
     </Reference>
     <Reference Include="DynamicServiceHost.Matcher, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DHost.Matcher.1.0.0.1\lib\net461\DynamicServiceHost.Matcher.dll</HintPath>

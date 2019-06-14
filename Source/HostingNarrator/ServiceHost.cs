@@ -50,7 +50,7 @@ namespace HostingNarrator
             {
                 var host = new DynamicHost(serviceType, container);
 
-                host.CreateConnectedHost(null);
+                host.CreateConnectedHost(isTransactional: false);
 
                 host.Open();
 
