@@ -44,9 +44,6 @@
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.4.3.1\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Composition.ESF_1, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Composition.ESF_1.1.0.1\lib\netstandard2.0\Composition.ESF_1.dll</HintPath>
-    </Reference>
     <Reference Include="DynamicServiceHost.Host, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DHost.Host.1.2.4\lib\net461\DynamicServiceHost.Host.dll</HintPath>
     </Reference>
@@ -225,6 +222,7 @@
     <Compile Include="Implementations\AutoFacLifetimeScope.cs" />
     <Compile Include="DependencyRegistor.cs" />
     <Compile Include="Implementations\AutofacIocContainer.cs" />
+    <Compile Include="Implementations\AutofactResolver.cs" />
     <Compile Include="Implementations\GenericInterceptor.cs" />
     <Compile Include="Abstracts\IGenericInterceptor.cs" />
     <Compile Include="Abstracts\ILogger.cs" />
@@ -240,6 +238,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="composition.ESF_1">
+      <Version>1.3.2</Version>
+    </PackageReference>
     <PackageReference Include="interceptors.esf_1">
       <Version>1.2.0</Version>
     </PackageReference>

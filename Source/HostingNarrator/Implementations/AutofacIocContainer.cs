@@ -28,27 +28,6 @@ namespace HostingNarrator.Implementations
             RegisterGenericInterceptor();
         }
 
-        public void RegisterFactory(
-            Type[] serviceTypes, 
-            Func<object> serviceFactory, 
-            Type[] interceptors = null)
-        {
-            var builder = containerBuilder
-                .Register(c => serviceFactory())
-                .InstancePerLifetimeScope();
-
-            foreach (var serviceType in serviceTypes)
-            {
-                builder.As(serviceType);
-            }
-
-            RegisterInterceptors(interceptors, builder);
-
-            ProvideLoggingContents(serviceTypes, interceptors, out StringBuilder serviceNames, out StringBuilder interceptorNames);
-
-            logger.Log($"Service factory: {serviceFactory} registered as:{Environment.NewLine}{serviceNames} with interceptors as following: {interceptorNames}", LogLevel.All);
-        }
-
         public void RegisterTransient(Type from, Type to)
         {
             containerBuilder
@@ -92,6 +71,42 @@ namespace HostingNarrator.Implementations
             logger.Log(
                 $"Service: {implementationType} registered as:{Environment.NewLine}{serviceNames}with interceptors as following:{Environment.NewLine}{interceptorNames}",
                 LogLevel.All);
+        }
+
+        public void RegisterFactoryTransient(Type[] serviceTypes, Func<IResolver, object> serviceFactory, Type[] interceptors = null)
+        {
+            var builder = containerBuilder
+                .Register(c => serviceFactory(new AutofactResolver(c)))
+                .InstancePerDependency();
+
+            foreach (var serviceType in serviceTypes)
+            {
+                builder.As(serviceType);
+            }
+
+            RegisterInterceptors(interceptors, builder);
+
+            ProvideLoggingContents(serviceTypes, interceptors, out StringBuilder serviceNames, out StringBuilder interceptorNames);
+
+            logger.Log($"Service factory: {serviceFactory} registered as:{Environment.NewLine}{serviceNames} with interceptors as following: {interceptorNames}", LogLevel.All);
+        }
+
+        public void RegisterFactoryPerGraph(Type[] serviceTypes, Func<IResolver, object> serviceFactory, Type[] interceptors = null)
+        {
+            var builder = containerBuilder
+                .Register(c => serviceFactory(new AutofactResolver(c)))
+                .InstancePerLifetimeScope();
+
+            foreach (var serviceType in serviceTypes)
+            {
+                builder.As(serviceType);
+            }
+
+            RegisterInterceptors(interceptors, builder);
+
+            ProvideLoggingContents(serviceTypes, interceptors, out StringBuilder serviceNames, out StringBuilder interceptorNames);
+
+            logger.Log($"Service factory: {serviceFactory} registered as:{Environment.NewLine}{serviceNames} with interceptors as following: {interceptorNames}", LogLevel.All);
         }
 
         public IContainer CreateContainer()
