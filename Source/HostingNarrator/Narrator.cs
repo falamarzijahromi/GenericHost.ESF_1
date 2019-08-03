@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Emit;
 using HostingNarrator.Abstracts;
 
 namespace HostingNarrator
@@ -10,6 +11,7 @@ namespace HostingNarrator
     public class Narrator : IDisposable
     {
         private readonly DirectoryInfo boundedContextDir;
+        private readonly ModuleBuilder moduleBuilder;
         private readonly ILogger logger;
 
         private ServiceHost commandServiceHost;
@@ -19,6 +21,12 @@ namespace HostingNarrator
         {
             this.boundedContextDir = boundedContextDir;
             this.logger = logger;
+
+            var asmName = new AssemblyName("SomeName");
+
+            var asmBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(asmName, AssemblyBuilderAccess.Run);
+
+            moduleBuilder = asmBuilder.DefineDynamicModule("DynamicModule");
         }
 
         public void Start()
@@ -38,8 +46,8 @@ namespace HostingNarrator
                 var commandTypes = TypeExtractor.Extract(contractAssembly, "Command", logger);
                 var queryTypes = TypeExtractor.Extract(contractAssembly, "Query", logger);
 
-                commandServiceHost = ServiceHost.HostCommands(commandTypes, container, logger);
-                queryServiceHost = ServiceHost.HostQueries(queryTypes, container, logger);
+                commandServiceHost = ServiceHost.HostCommands(commandTypes, moduleBuilder, container, logger);
+                queryServiceHost = ServiceHost.HostQueries(queryTypes, moduleBuilder, container, logger);
 
                 containerSetup.Invoke();
             }

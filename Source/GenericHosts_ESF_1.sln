@@ -9,6 +9,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{075E6C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HostingNarrator", "HostingNarrator\HostingNarrator.csproj", "{95D043A1-8097-45CF-AF3D-A87EEBC793AF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsServiceHost", "WindowsServiceHost\WindowsServiceHost.csproj", "{FFBEC7D1-FC16-447D-B328-3217713E9ADA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "TestConsole\TestConsole.csproj", "{A81BF7EF-E882-45AF-AE2C-6C9318BDF43F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +27,14 @@ Global
 		{95D043A1-8097-45CF-AF3D-A87EEBC793AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95D043A1-8097-45CF-AF3D-A87EEBC793AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95D043A1-8097-45CF-AF3D-A87EEBC793AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFBEC7D1-FC16-447D-B328-3217713E9ADA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFBEC7D1-FC16-447D-B328-3217713E9ADA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFBEC7D1-FC16-447D-B328-3217713E9ADA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFBEC7D1-FC16-447D-B328-3217713E9ADA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A81BF7EF-E882-45AF-AE2C-6C9318BDF43F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A81BF7EF-E882-45AF-AE2C-6C9318BDF43F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A81BF7EF-E882-45AF-AE2C-6C9318BDF43F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A81BF7EF-E882-45AF-AE2C-6C9318BDF43F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

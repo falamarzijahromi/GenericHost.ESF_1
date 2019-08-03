@@ -10,3 +10,7 @@
 /Source/ConsoleHost/obj
 /Source/ConsoleHost/bin
 /Source/.vs/GenericHosts_ESF_1/v15
+/Source/TestConsole/bin/Debug
+/Source/TestConsole/obj
+/Source/WindowsServiceHost/bin/Debug
+/Source/WindowsServiceHost/obj
